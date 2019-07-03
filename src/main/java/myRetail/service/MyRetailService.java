@@ -1,6 +1,7 @@
 package myRetail.service;
 
 import java.net.URISyntaxException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,10 @@ public class MyRetailService
 	public Product getProduct(int id) throws Exception
 	{
 		String name = getName(id);	
+		if(name == null)
+		{
+			return null;
+		}
 		Price price = getPrice(id);
 		
 		Product product = new Product(id, name, price);
@@ -57,13 +62,25 @@ public class MyRetailService
 
 	private Price getPrice(int id) 
 	{
-		return priceRepository.findById(id).get();
+		Optional<Price> optional = priceRepository.findById(id);
+		if(optional.isPresent())
+		{
+			return optional.get();
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
 	private String getName(int id) throws Exception
 	{
 		return redSkyRestClient.getProductName(id);
 	}
-	
+
+	public Price createProductPrice(Price price)
+	{
+		return priceRepository.save(price);
+	}
 
 }

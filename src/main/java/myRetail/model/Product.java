@@ -1,11 +1,14 @@
 package myRetail.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Product {
 	
 	private int id;
 	
 	private String name;
 
+	@JsonProperty("current_price")
 	private Price price;
 	
 	public Product(int id, String name, Price price) {

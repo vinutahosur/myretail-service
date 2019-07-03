@@ -18,17 +18,26 @@ public class MyRetailController {
 	@Autowired
 	MyRetailService myRetailService;
 
-	@RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
-	public Product getProduct(@PathVariable("id") int id) throws Exception
+	@RequestMapping(value = "/myretail/products/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getProduct(@PathVariable("id") int id) throws Exception
 	{
-		return myRetailService.getProduct(id);
+		Product product = myRetailService.getProduct(id);
+		
+		if(product == null)
+		{
+			return new ResponseEntity<Product>(product, HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Product>(product, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/myretail/products/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> updateProduct(@PathVariable("id") int id, @RequestBody Product product) throws Exception
 	{
 		Product updatedProduct = myRetailService.updateProduct(product);
 		
 		return new ResponseEntity<Product>(updatedProduct, HttpStatus.OK);
 	}
+	
+	
 }
