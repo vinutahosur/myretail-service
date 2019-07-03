@@ -1,43 +1,58 @@
-"# myretail-service" 
+# myRetail-service
 
-myRetail-service is a REST-based 'microservice' which I have developed using Java 8 and Spring Boot framework. 
-It exposes REST API for web and mobile clients to GET and UPDATE product information as JSON. 
-The service runs on embedded tomcat server.
+myRetail-service is a REST-based 'microservice' which I have developed using Java 8 and Spring Boot framework. It exposes REST API for web and mobile clients to GET and UPDATE product information as JSON. The service runs on embedded tomcat server.
 
-The service gets product details from RedSky REST service using Spring's RestTemplate. 
-I am using AWS DynamoDB as the NoSQL data source. The service shows the use of spring-boot-data and
-AWS SDK to get pricing details.
+The service gets product details from RedSky REST service using Spring's RestTemplate. Product price details are stored in AWS DynamoDB NoSQL data source. The service shows the use of spring-boot-data and AWS SDK to get and update price details in DynamoDB.
 
-Also, myRetail-service is dockerized and ready to be deployed on cloud.
+Also, myRetail-service can run as a Docker container and ready to be deployed in cloud.
 
-#Get the source code
+## Get the source code
+Clone from the git repository
+```
 git clone 
+```
 
-#Build
-{Pre-requisites: gradle}
+## Build
+Pre-requisites: gradle
+```
 cd myRetail-service
 gradle clean build
+```
 
-#Run as desktop application
+## Run as desktop application
+```
 java -jar /build/libs/myretail-service-010.jar
+```
 
-#Populate Test Data in DynamoDB
-{Pre-requisites:Configure AWS credentials}
--Create Table named "ProductPrice"
+## Populate Test Data in DynamoDB
+Pre-requisites:Configure AWS credentials
+
+* Create Table named "ProductPrice"
+```
 aws dynamodb create-table --table-name ProductPrice --attribute-definitions AttributeName=id,AttributeType=N --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
--Insert data
+```
+
+* Insert data
+```
 aws dynamodb put-item --table-name ProductPrice --item file://price_data.json
+```
 
-#Run as Docker Container
-{Pre-requisites:Docker}
--Create docker image
+## Run as Docker Container
+Pre-requisites:Install Docker
+
+* Create docker image
+```
 docker build -t myretail-service:latest .
--Run Docker container
-docker run -e AWS_ACCESS_KEY_ID=<your_aws_access_key> -e AWS_SECRET_ACCESS_KEY=<your_aws_secret_key> -p 8080:8080 myretail-service:latest
+```
 
-#Test
+* Run Docker container
+```
+docker run -e AWS_ACCESS_KEY_ID=<your_aws_access_key> -e AWS_SECRET_ACCESS_KEY=<your_aws_secret_key> -p 8080:8080 myretail-service:latest
+```
+
+## Test
 myRetail-service exposes two API - 
-GET http://localhost:8080/myretail/products/{id}: 
+### 1. GET http://localhost:8080/myretail/products/{id}: 
 Returns product information for the {id} in JSON. As per sample data,use id=13860428 to test.
 Sample JSON response: 
 {
@@ -52,7 +67,7 @@ Error Handling:
 1. For {id} where the product information is not returned by RedSky REST service, the above API returns '404 (Not Found)' HTTP response.
 2. For {id} where the pricing information is not available in NoSQL data source, the "current_price" value will be null.
 
-PUT http://localhost:8080/myretail/products/{id}: 
+### 2. PUT http://localhost:8080/myretail/products/{id}: 
 Update the Price information for Product with {id} in the NoSQL data source.
 Sample JSON Request:
 {
@@ -72,7 +87,7 @@ Sample JSON response:
         "currency_code": "USD"
     }
 }
-As of now, this API can handle updates to Price information alone and not the change in name.
+Please note that as of now, this API can handle updates to Price information alone and not the change in name.
 
 If using POSTMAN to test, you can import the myRetail-service-test.json test collection.
 
