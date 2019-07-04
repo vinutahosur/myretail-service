@@ -4,7 +4,7 @@ myRetail-service is a REST-based 'microservice' which I have developed using Jav
 
 The service gets product details from RedSky REST service using Spring's RestTemplate. Product price details are stored in AWS DynamoDB NoSQL data source. The service shows the use of spring-boot-data and AWS SDK to get and update price details in DynamoDB.
 
-Also, myRetail-service can run as a Docker container and ready to be deployed in cloud.
+Also, myRetail-service is Dockerized and hence can be deployed on cloud to achieve required scalability.
 
 ## Get the source code
 Clone from the git repository
