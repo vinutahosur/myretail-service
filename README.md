@@ -4,37 +4,39 @@ myRetail-service is a REST-based 'microservice' which I have developed using Jav
 
 The service gets product details from RedSky REST service using Spring's RestTemplate. Product price details are stored in AWS DynamoDB NoSQL data source. The service shows the use of spring-boot-data and AWS SDK to get and update price details in DynamoDB.
 
-Also, myRetail-service can run as a Docker container and ready to be deployed in cloud.
+Also, myRetail-service is Dockerized and hence can be deployed on cloud to achieve required scalability.
 
 ## Get the source code
 Clone from the git repository
 ```
-git clone 
+git clone https://github.com/vinutahosur/myretail-service.git
 ```
 
 ## Build
 Pre-requisites: gradle
 ```
-cd myRetail-service
+cd myretail-service
 gradle clean build
 ```
 
 ## Run as desktop application
 ```
-java -jar /build/libs/myretail-service-010.jar
+java -jar build\libs\myretail-service-010.jar
 ```
 
 ## Populate Test Data in DynamoDB
 Pre-requisites:Configure AWS credentials
 
 * Create Table named "ProductPrice"
+Table can be created from AWS console or using the CLI command below.
 ```
 aws dynamodb create-table --table-name ProductPrice --attribute-definitions AttributeName=id,AttributeType=N --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
 ```
 
-* Insert data
+* Insert test data
+Data can be inserted from AWS console or using the CLI command below.
 ```
-aws dynamodb put-item --table-name ProductPrice --item file://price_data.json
+aws dynamodb put-item --table-name ProductPrice --item file://ProductPrice_DataLoad.json
 ```
 
 ## Run as Docker Container
@@ -46,8 +48,19 @@ docker build -t myretail-service:latest .
 ```
 
 * Run Docker container
+This command will make myretaile-service available on port 8080.
 ```
 docker run -e AWS_ACCESS_KEY_ID=<your_aws_access_key> -e AWS_SECRET_ACCESS_KEY=<your_aws_secret_key> -p 8080:8080 myretail-service:latest
+```
+
+* List Docker Containers
+```
+docker ps
+```
+
+* Stop Docker Container
+```
+docker stop <container-id returned by 'docker ps'>
 ```
 
 ## Test
