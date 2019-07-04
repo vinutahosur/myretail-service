@@ -77,10 +77,4 @@ public class MyRetailService
 	{
 		return redSkyRestClient.getProductName(id);
 	}
-
-	public Price createProductPrice(Price price)
-	{
-		return priceRepository.save(price);
-	}
-
 }
