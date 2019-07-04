@@ -110,7 +110,7 @@ Sample JSON response:
 ```
 Please note that as of now, this API can handle updates to Price information alone and not the change in name.
 
-If using POSTMAN to test, you can import the myRetail-service-test.json test collection.
+If using POSTMAN to test, you can import the 'myRetail_Test_Collection.postman_collection.json' test collection from project main folder.
 
 
 
