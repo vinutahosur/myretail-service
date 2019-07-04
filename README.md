@@ -53,8 +53,10 @@ docker run -e AWS_ACCESS_KEY_ID=<your_aws_access_key> -e AWS_SECRET_ACCESS_KEY=<
 ## Test
 myRetail-service exposes two API - 
 ### 1. GET http://localhost:8080/myretail/products/{id}: 
-Returns product information for the {id} in JSON. As per sample data,use id=13860428 to test.
-Sample JSON response: 
+Returns a '200 OK' HTTP response and product information for the {id} in JSON. 
+As per sample data we have loaded,use id=13860428 to test.
+Sample JSON response:
+``` 
 {
     "id": 13860428,
     "name": "The Big Lebowski (Blu-ray)",
@@ -63,13 +65,15 @@ Sample JSON response:
         "currency_code": "USD"
     }
 }
+```
 Error Handling:
 1. For {id} where the product information is not returned by RedSky REST service, the above API returns '404 (Not Found)' HTTP response.
-2. For {id} where the pricing information is not available in NoSQL data source, the "current_price" value will be null.
+2. For {id} where the pricing information is not available in NoSQL data source, HTTP '200 OK' is recieved but the "current_price" value will be 'null' in the JSON response.
 
 ### 2. PUT http://localhost:8080/myretail/products/{id}: 
 Update the Price information for Product with {id} in the NoSQL data source.
 Sample JSON Request:
+```
 {
     "id": 13860428,
     "name": "The Big Lebowski (Blu-ray)",
@@ -78,7 +82,10 @@ Sample JSON Request:
         "currency_code": "USD"
     }
 }
+```
+Returns a '200 OK' HTTP response and updated product information for the {id} in JSON. 
 Sample JSON response:
+```
 {
     "id": 13860428,
     "name": "The Big Lebowski (Blu-ray)",
@@ -87,6 +94,7 @@ Sample JSON response:
         "currency_code": "USD"
     }
 }
+```
 Please note that as of now, this API can handle updates to Price information alone and not the change in name.
 
 If using POSTMAN to test, you can import the myRetail-service-test.json test collection.
