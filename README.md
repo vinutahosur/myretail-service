@@ -121,9 +121,9 @@ If using POSTMAN to test, you can import the 'myRetail_Test_Collection.postman_c
 
 ## Yet to be addressed
 
-* Security 
-** API Access Control - OAuth2.0
-** Vulnerability Mitigation
+* Security /
+- API Access Control - OAuth2.0 /
+- Vulnerability Mitigation /
 * Caching 
 * Comprehensive Error Handling
 * Logging
