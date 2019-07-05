@@ -1,6 +1,6 @@
 # myRetail-service
 
-myRetail-service is a REST-based 'microservice' which I have developed using Java 8 and Spring Boot framework. It exposes REST API for web and mobile clients to GET and UPDATE product information as JSON. The service runs on embedded tomcat server.
+myRetail-service is a REST-based 'microservice' which I have developed using Java 8 and Spring Boot framework. It exposes REST API for web and mobile clients to GET and UPDATE product information as JSON. The service runs on embedded Tomcat server.
 
 The service gets product details from another REST service (RedSky) and product price details from AWS DynamoDB NoSQL data source.
 
@@ -121,5 +121,10 @@ Please note that as of now, this API can handle updates to Price information alo
 
 If using POSTMAN to test, you can import the 'myRetail_Test_Collection.postman_collection.json' test collection from project main folder.
 
+## Yet to be addressed
 
+* Security - OAuth2.0
+* Caching 
+* Error Handling
+* Logging
 
