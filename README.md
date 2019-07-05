@@ -2,9 +2,18 @@
 
 myRetail-service is a REST-based 'microservice' which I have developed using Java 8 and Spring Boot framework. It exposes REST API for web and mobile clients to GET and UPDATE product information as JSON. The service runs on embedded tomcat server.
 
-The service gets product details from RedSky REST service using Spring's RestTemplate. Product price details are stored in AWS DynamoDB NoSQL data source. The service shows the use of spring-boot-data and AWS SDK to get and update price details in DynamoDB.
+The service gets product details from another REST service (RedSky) and product price details from AWS DynamoDB NoSQL data source.
 
-Also, myRetail-service is Dockerized and hence can be deployed on cloud to achieve required scalability.
+Also, myRetail-service is Dockerized and run as a Docker container. Also can be deployed on cloud to achieve required scalability.
+
+This project demonstrates the following -
+* Java Spring Boot Framework
+* Spring RestTemplate to call a REST service
+* Spring Data to integrate with NoSQL data source
+* AWS SDK to interact with DynamoDB
+* Docker to build and run service as a Docker Container
+* Gradle build framework
+* JUnit with Mockito framework
 
 ## Get the source code
 Clone from the git repository
