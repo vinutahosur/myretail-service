@@ -1,10 +1,17 @@
 # myRetail-service
 
-myRetail-service is a REST-based 'microservice' which I have developed using Java 8 and Spring Boot framework. It exposes REST API for web and mobile clients to GET and UPDATE product information as JSON. The service runs on embedded tomcat server.
+myRetail-service is a REST-based 'microservice' which exposes API for web and mobile clients to GET and UPDATE product information as JSON. The service runs on embedded Tomcat server. The service gets product details from another REST service (RedSky) and gets/updates price details from AWS DynamoDB NoSQL data source.
 
-The service gets product details from RedSky REST service using Spring's RestTemplate. Product price details are stored in AWS DynamoDB NoSQL data source. The service shows the use of spring-boot-data and AWS SDK to get and update price details in DynamoDB.
+myRetail-service is Dockerized and can be run as a Docker container as well. Also can be deployed on cloud to achieve required scalability.
 
-Also, myRetail-service is Dockerized and hence can be deployed on cloud to achieve required scalability.
+## Technologies and tools used -
+* Java Spring Boot Framework
+* Spring RestTemplate to call a REST service
+* Spring Data to integrate with NoSQL data source
+* AWS SDK to interact with DynamoDB
+* Docker to build and run service as a Docker Container
+* Gradle build framework
+* JUnit with Mockito framework
 
 ## Get the source code
 Clone from the git repository
@@ -110,7 +117,15 @@ Sample JSON response:
 ```
 Please note that as of now, this API can handle updates to Price information alone and not the change in name.
 
-If using POSTMAN to test, you can import the myRetail-service-test.json test collection.
+If using POSTMAN to test, you can import the 'myRetail_Test_Collection.postman_collection.json' test collection from project main folder.
 
+## Yet to be addressed
 
+* Security
+    - API Access Control - OAuth2.0
+    - Vulnerability Mitigation
+* Caching 
+* Comprehensive Error Handling
+* Logging
+* Auditing
 
